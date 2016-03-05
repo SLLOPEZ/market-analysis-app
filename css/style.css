@@ -1,0 +1,32 @@
+body{
+  font-family: Courier;
+  font-weight: lighter;
+  color: #679491;
+}
+h1{
+  text-align: center;
+  font-weight: lighter;
+}
+#images{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+img{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#voteTracker{
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+#showResults{
+  display: flex;
+  justify-content: center;
+}
+#table{
+  display: flex;
+  justify-content: center;
+}

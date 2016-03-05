@@ -34,7 +34,6 @@ var tracker = {
     imgTwo.src = products[randomTwo].path;
     imgTwo.name = products[randomTwo].name;
     while (imgOne.name === imgTwo.name){
-      console.log('loop')
       var randomTwo = this.randomImg();
       imgTwo.src = products[randomTwo].path;
       imgTwo.name = products[randomTwo].name;
@@ -42,12 +41,33 @@ var tracker = {
     var randomThree = this.randomImg();
     imgThree.src = products[randomThree].path;
     imgThree.name = products[randomThree].name;
-    while (imgOne.name === imgTwo.name || imgTwo.name === imgThree.name){
-      console.log('loop1')
+    while (imgOne.name === imgThree.name || imgTwo.name === imgThree.name){
       var randomThree = this.randomImg();
       imgThree.src = products[randomThree].path;
       imgThree.name = products[randomThree].name;
     };
   },
+
+  voteListener: function() {
+    tracker.images.addEventListener('click', function(event){
+      if (voteCounter >= 15) {
+        tracker.images.removeEventListener('click');
+      } else {
+        voteCounter ++;
+        for (var i=0; i < products.length; i++){
+          if (event.target.name === products[i].name){
+            products[i].votes ++;
+            console.log(products[i].votes + ' ' + products[i].name);
+            tracker.displayImg();
+            console.log('vote counter' + voteCounter);
+            break;
+          }
+        }
+      }
+    })
+  }
 };
-tracker.displayImg();
+window.onload = function() {
+  tracker.displayImg();
+  tracker.voteListener();
+};

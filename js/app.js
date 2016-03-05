@@ -1,4 +1,4 @@
-var productName = ['bag', 'banana', 'boots', 'chair', 'cthulhu', 'dragon', 'pen', 'scissors', 'shark', 'sweep', 'unicorn', 'usb', 'water_can', 'wine_glass'];
+var productName = ['bag', 'banana', 'boots', 'chair', 'cthulhu', 'dragon', 'pen', 'scissors', 'shark', 'sweep', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var products = [];
 var voteCounter = 0;
 
@@ -50,16 +50,15 @@ var tracker = {
 
   voteListener: function() {
     tracker.images.addEventListener('click', function(event){
+      document.getElementById('voteTracker').innerHTML = 'Votes submitted ' + voteCounter + '<br>' + 'Votes left ' + (15 - voteCounter);
       if (voteCounter >= 15) {
         tracker.images.removeEventListener('click');
       } else {
-        voteCounter ++;
+        voteCounter ++
         for (var i=0; i < products.length; i++){
-          if (event.target.name === products[i].name){
+          if (event.target.name ===  products[i].name){
             products[i].votes ++;
-            console.log(products[i].votes + ' ' + products[i].name);
             tracker.displayImg();
-            console.log('vote counter' + voteCounter);
             break;
           }
         }
@@ -67,7 +66,36 @@ var tracker = {
     })
   }
 };
+
 window.onload = function() {
   tracker.displayImg();
   tracker.voteListener();
+};
+
+document.getElementById('showResults').addEventListener('click', results, false);
+
+function results() {
+  var table = document.createElement('table');
+  var row = document.createElement('tr');
+  var tableHeader = ['Product', 'Votes'];
+  for (var i = 0; i < tableHeader.length; i++){
+    var thead = document.createElement('th');
+    var headText = document.createTextNode(tableHeader[i]);
+    thead.appendChild(headText);
+    row.appendChild(thead);
+    table.appendChild(row);
+  }
+  for (var i = 0; i < products.length; i++) {
+    var row2 = document.createElement('tr');
+    var tcolumn = document.createElement('td');
+    var data = document.createTextNode(products[i].name);
+    var tcolumn2 = document.createElement('td');
+    var data2 = document.createTextNode(products[i].votes);
+    tcolumn.appendChild(data);
+    row2.appendChild(tcolumn);
+    tcolumn2.appendChild(data2);
+    row2.appendChild(tcolumn2);
+    table.appendChild(row2);
+  }
+  document.getElementById('table').appendChild(table);
 };
